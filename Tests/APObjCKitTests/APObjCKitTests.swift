@@ -2,14 +2,16 @@ import XCTest
 @testable import APObjCKit
 
 final class APObjCKitTests: XCTestCase {
-    func testExample() {
+
+    func testVersion() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(APObjCKit().text, "Hello, World!")
+        // match version
+        XCTAssertEqual(APObjCKit.version(), "0.2.0")
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testVersion", testVersion),
     ]
 }
