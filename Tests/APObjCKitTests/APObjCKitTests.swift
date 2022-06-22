@@ -13,7 +13,7 @@ final class APObjCKitTests: XCTestCase {
     func testOSVersion(){
         
         var osmv : Int = 0
-        let gotV = APObjCKit.getOSMVersion(&osmv)
+        let gotV = APSys.getOSMVersion(&osmv)
         XCTAssertEqual(gotV, true)
         XCTAssertEqual(osmv, 21)    //21
     }

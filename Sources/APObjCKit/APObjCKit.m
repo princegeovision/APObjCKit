@@ -17,6 +17,11 @@
     return @"0.3.0";
 }
 
+
+@end
+
+@implementation APSys
+
 + (BOOL) getOSMVersion:(NSInteger*)major
 {
     return [APSysUtility getOSMajorVersion:major];
