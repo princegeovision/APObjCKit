@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *) version;
 
++ (BOOL) getOSMVersion:(NSInteger*)major;
+
 @end
 
 

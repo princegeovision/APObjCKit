@@ -6,6 +6,7 @@
 //
 
 #import "APObjCKit.h"
+#import "CoreUtility/APSysUtility.h"
 
 @implementation APObjCKit
 
@@ -14,6 +15,11 @@
 {
     
     return @"0.2.0";
+}
+
++ (BOOL) getOSMVersion:(NSInteger*)major
+{
+    return [APSysUtility getOSMajorVersion:major];
 }
 
 @end
