@@ -21,6 +21,69 @@
 
 @implementation APSysUtility
 
++ (NSString*) getStringWithDate:(NSDate*)localDate useUtc:(BOOL)useUtc format:(NSString*)format
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone* timeZone = nil;
+    if (useUtc)
+    {
+        timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    }
+    else
+    {
+        timeZone = [NSTimeZone defaultTimeZone];
+    }
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:format];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    //[dateFormatter release];
+    return dateString;
+}
++ (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc
+{
+    NSString* value = nil;
+    switch (sdType) {
+        case APSysUtilityDateTypeYear:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"yyyy"];
+        }
+            break;
+        case APSysUtilityDateTypeMonth:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"MM"];
+        }
+            break;
+        case APSysUtilityDateTypeDay:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"dd"];
+        }
+            break;
+        case APSysUtilityDateTypeHours:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"HH"];
+        }
+            break;
+        case APSysUtilityDateTypeMinutes:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"mm"];
+        }
+            break;
+        case APSysUtilityDateTypeSeconds:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"ss"];
+        }
+            break;
+        case APSysUtilityDateTypeMilliseconds:
+        {
+            value = [APSysUtility getStringWithDate:date useUtc:useUtc format:@"SSS"];
+        }
+            break;
+        default:
+            break;
+    }
+    return [NSNumber numberWithInteger:[value integerValue]];
+}
+
 + (BOOL) getOSMajorVersion:(NSInteger *)major
 {
     if (!major)

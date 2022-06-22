@@ -16,15 +16,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *) version;
 
-+ (BOOL) getOSMVersion:(NSInteger*)major;
 
 @end
+
+typedef NS_ENUM(NSInteger, APSysDateType) {
+    APSysDateTypeYear = 1,
+    APSysDateTypeMonth = 2,
+    APSysDateTypeDay = 3,
+    APSysDateTypeHours = 4,
+    APSysDateTypeMinutes = 5,
+    APSysDateTypeSeconds = 6,
+    APSysDateTypeMilliseconds = 7
+};
 
 @interface APSys : NSObject
 {
     
 }
-
++ (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc;
 + (BOOL) getOSMVersion:(NSInteger*)major;
 
 @end

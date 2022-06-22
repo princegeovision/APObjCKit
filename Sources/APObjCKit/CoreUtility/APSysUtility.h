@@ -9,11 +9,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+typedef NS_ENUM(NSInteger, APSysUtilityDateType) {
+    APSysUtilityDateTypeYear = 1,
+    APSysUtilityDateTypeMonth = 2,
+    APSysUtilityDateTypeDay = 3,
+    APSysUtilityDateTypeHours = 4,
+    APSysUtilityDateTypeMinutes = 5,
+    APSysUtilityDateTypeSeconds = 6,
+    APSysUtilityDateTypeMilliseconds = 7
+};
+
 NS_SWIFT_NAME(AP.SysUtility)
 @interface APSysUtility : NSObject
 {
     
 }
+//API03
++ (NSString*) getStringWithDate:(NSDate*)localDate useUtc:(BOOL)useUtc format:(NSString*)format;
+
+//API02
++ (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc;
+
 //API01
 //major version of macOS
 // 21.3.0 , macOS 12.2.1
