@@ -8,14 +8,23 @@ final class APObjCKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         // match version
-        XCTAssertEqual(APObjCKit.version(), "0.3.0")
+        XCTAssertEqual(APObjCKit.version(), "0.4.0")
     }
     func testOSVersion(){
         
         var osmv : Int = 0
         let gotV = APSys.getOSMVersion(&osmv)
         XCTAssertEqual(gotV, true)
-        XCTAssertEqual(osmv, 21)    //21
+        if #available(macOS 12.0, * ) {
+            XCTAssertEqual(osmv, 21)    //macOS Monterey
+        } else if #available(macOS 11.0, * ) {
+            XCTAssertEqual(osmv, 20)    //macOS Big Sur
+        } else if #available(macOS 10.15, * ) {
+            XCTAssertEqual(osmv, 19)    //macOS Catalina
+        } else {
+            XCTAssertEqual(osmv, 0)    //Unknown
+        }
+        
     }
     
     func testGetNumberWithDateYear(){
