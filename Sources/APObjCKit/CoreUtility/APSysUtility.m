@@ -21,6 +21,12 @@
 
 @implementation APSysUtility
 
+
++ (BOOL) isLANIPv4AddrValidate:(NSString*)ipAddress
+{
+    return false;
+}
+
 + (NSString*) getStringWithDate:(NSDate*)localDate useUtc:(BOOL)useUtc format:(NSString*)format
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

@@ -22,6 +22,11 @@
 
 @implementation APSys
 
++ (BOOL) isIPv4AddressValidation:(NSString*)ipAddr
+{
+    return [APSysUtility isLANIPv4AddrValidate:ipAddr];;
+}
+
 + (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc
 {
     return [APSysUtility getNumberWithDate:date type:sdType useUtc:useUtc];

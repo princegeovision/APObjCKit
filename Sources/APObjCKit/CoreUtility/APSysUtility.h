@@ -25,6 +25,8 @@ NS_SWIFT_NAME(AP.SysUtility)
 {
     
 }
+//API04
++ (BOOL) isLANIPv4AddrValidate:(NSString*)ipAddress;
 //API03
 + (NSString*) getStringWithDate:(NSDate*)localDate useUtc:(BOOL)useUtc format:(NSString*)format;
 

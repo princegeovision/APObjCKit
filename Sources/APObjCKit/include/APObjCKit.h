@@ -33,8 +33,13 @@ typedef NS_ENUM(NSInteger, APSysDateType) {
 {
     
 }
+
++ (BOOL) isIPv4AddressValidation:(NSString*)ipAddr;
+
 + (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc;
+
 + (NSString*) getStringWithDate:(NSDate*)date useUtc:(BOOL)useUtc;
+
 + (BOOL) getOSMVersion:(NSInteger*)major;
 
 @end
