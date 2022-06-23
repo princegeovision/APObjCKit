@@ -29,12 +29,19 @@ extern NSString* const kNetworkInterfaceKeyMacAddress;
 extern NSString* const kNetworkInterfaceKeyGateway;
 extern NSString* const kNetworkInterfaceKeyDnsServers;
 
+struct ifaddrs;
+
 NS_SWIFT_NAME(AP.SysUtility)
 @interface APSysUtility : NSObject
 {
     
 }
-
+//API07
++ (NSString*) getIpV4;
+//API06
++ (NSArray*) getAllNetworkInterface;
+//API05
++ (NSDictionary*) get1stInterfaceInfo;
 //API04
 + (BOOL) isLANIPv4AddrValidate:(NSString*)ipAddress;
 //API03
