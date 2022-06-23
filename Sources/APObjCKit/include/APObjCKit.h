@@ -46,6 +46,8 @@ typedef NS_ENUM(NSInteger, APSysNIKey) {
 }
 + (NSString*) getNIKey:(NSInteger)key;
 
++ (NSDictionary*) get1stNIInfo;
+
 + (BOOL) isIPv4AddressValidation:(NSString*)ipAddr;
 
 + (NSNumber*) getNumberWithDate:(NSDate*)date type:(NSInteger)sdType useUtc:(BOOL)useUtc;

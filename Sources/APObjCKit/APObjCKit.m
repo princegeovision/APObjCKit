@@ -37,6 +37,12 @@
         return (NSString *)[arr objectAtIndex:key];
 }
 
++ (NSDictionary*) get1stNIInfo
+{
+    
+    return nil;
+}
+
 + (BOOL) isIPv4AddressValidation:(NSString*)ipAddr
 {
     return [APSysUtility isLANIPv4AddrValidate:ipAddr];;
