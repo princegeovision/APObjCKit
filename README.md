@@ -14,6 +14,7 @@ This package, provide Objective-C part of share code in Apple Platform helper ut
 
 ### History
 
+- 0.7.0 : provide API for Network Interface Info. (both macOS , and iOS)
 - 0.6.0 : provide API for Network Interface key.
 - 0.5.0 : provide API for IPv4 Address validation.
 - 0.4.0 : provide API for get number from NSDate.

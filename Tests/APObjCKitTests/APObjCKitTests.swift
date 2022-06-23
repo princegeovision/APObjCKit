@@ -8,7 +8,7 @@ final class APObjCKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         // match version
-        XCTAssertEqual(APObjCKit.version(), "0.6.0")
+        XCTAssertEqual(APObjCKit.version(), "0.7.0")
     }
     func prepareInputDate()->NSDate {
         let timeStamp = 1513330403393 //2017-12-15 09:33:23 +0000 UTC, Local +8
