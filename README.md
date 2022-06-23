@@ -9,7 +9,8 @@ This package, provide Objective-C part of share code in Apple Platform helper ut
 
 ### Notes
 
-- "PreRequirement.h" not use in iOS.
+- "PreRequirement.h" not use in iOS
+- "libresolv.tbd", "libresolv.9.tbd" need this. [REF](https://developer.apple.com/forums/thread/654882)
 
 ### History
 
