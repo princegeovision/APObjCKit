@@ -8,7 +8,7 @@ final class APObjCKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         // match version
-        XCTAssertEqual(APObjCKit.version(), "0.4.0")
+        XCTAssertEqual(APObjCKit.version(), "0.5.0")
     }
     func prepareInputDate()->NSDate {
         let timeStamp = 1513330403393 //2017-12-15 09:33:23 +0000 UTC, Local +8
@@ -82,7 +82,27 @@ final class APObjCKitTests: XCTestCase {
         let str = APSys.getStringWith(exactDate as Date, useUtc: false)
         XCTAssertEqual(str, "2017-12-15 17-33-23.393 +0800")
     }
-    //getStringWithDate
+    func testIPv4AddressValidateSomeIP(){
+        let bValidate = APSys.isIPv4AddressValidation("192.168.3.72");
+        XCTAssertEqual(bValidate, true)
+    }
+    func testIPv4AddressValidateMask(){
+        //Mask
+        let bValidate = APSys.isIPv4AddressValidation("255.255.248.0");
+        XCTAssertEqual(bValidate, true)
+    }
+    func testIPv4AddressValidateWrongString(){
+        //Wrong String
+        let bValidate = APSys.isIPv4AddressValidation("192.168.110.256");
+        XCTAssertEqual(bValidate, false)
+    }
+    func testIPv4AddressValidateZero(){
+        //Wrong String
+        let bValidate = APSys.isIPv4AddressValidation("0.0.0.0");
+        XCTAssertEqual(bValidate, true)
+    }
+    //isIPv4AddressValidation
+
     
     static var allTests = [
         ("testVersion", testVersion),
@@ -94,5 +114,9 @@ final class APObjCKitTests: XCTestCase {
         ("testGetNumberWithDateMinutes", testGetNumberWithDateMinutes),
         ("testGetNumberWithDateSeconds", testGetNumberWithDateSeconds),
         ("testGetNumberWithDateMilliseconds", testGetNumberWithDateMilliseconds),
+        ("testIPv4AddressValidateSomeIP", testIPv4AddressValidateSomeIP),
+        ("testIPv4AddressValidateMask", testIPv4AddressValidateMask),
+        ("testIPv4AddressValidateWrongString", testIPv4AddressValidateWrongString),
+        ("testIPv4AddressValidateZero", testIPv4AddressValidateZero),
     ]
 }

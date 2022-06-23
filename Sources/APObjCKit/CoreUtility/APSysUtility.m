@@ -24,7 +24,38 @@
 
 + (BOOL) isLANIPv4AddrValidate:(NSString*)ipAddress
 {
-    return false;
+    if (!ipAddress)
+    {
+        return NO;
+    }
+    
+    NSArray* components = [ipAddress componentsSeparatedByString:@"."];
+    if ([components count] != 4){
+        return NO;
+    }
+    
+    BOOL valid = YES;
+    NSNumberFormatter* format = [[NSNumberFormatter alloc] init];
+    [format setNumberStyle:NSNumberFormatterDecimalStyle];
+    for (NSString* component in components)
+    {
+        if (0 == [component length]){
+            valid = NO;
+            break;
+        }
+        
+        NSNumber* ipNumber = [format numberFromString:component];
+        if (!ipNumber){
+            valid = NO;
+            break;
+        }
+
+        if (0 > [ipNumber integerValue] || 255 < [ipNumber integerValue]){
+            valid = NO;
+            break;
+        }
+    }
+    return valid;
 }
 
 + (NSString*) getStringWithDate:(NSDate*)localDate useUtc:(BOOL)useUtc format:(NSString*)format
