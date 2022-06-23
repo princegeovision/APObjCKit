@@ -101,50 +101,23 @@ final class APObjCKitTests: XCTestCase {
         let bValidate = APSys.isIPv4AddressValidation("0.0.0.0");
         XCTAssertEqual(bValidate, true)
     }
-    func testNIKey1_name(){
-        
-        let name = APSys.getNIKey(APSysNIKey.name.rawValue)
-        XCTAssertEqual(name, "name")
-    }
-    func testNIKey2_localized_name(){
-        
-        let value = APSys.getNIKey(APSysNIKey.localizedName.rawValue)
-        XCTAssertEqual(value, "localized_name")
-    }
-    func testNIKey3_mask(){
-        
-        let value = APSys.getNIKey(APSysNIKey.mask.rawValue)
-        XCTAssertEqual(value, "mask")
-    }
-    
-    func testNIKey4_destination(){
-        
-        let value = APSys.getNIKey(APSysNIKey.destination.rawValue)
-        XCTAssertEqual(value, "destination")
-    }
-    
-    func testNIKey5_address(){
-        
-        let value = APSys.getNIKey(APSysNIKey.address.rawValue)
-        XCTAssertEqual(value, "address")
-    }
-    
-    func testNIKey6_mac_address(){
-        
-        let value = APSys.getNIKey(APSysNIKey.macAddress.rawValue)
-        XCTAssertEqual(value, "mac_address")
-    }
-    
-    func testNIKey7_gateway(){
-        
-        let value = APSys.getNIKey(APSysNIKey.gateway.rawValue)
-        XCTAssertEqual(value, "gateway")
-    }
-    //
-    func testNIKey8_dns_servers(){
-        
-        let value = APSys.getNIKey(APSysNIKey.dnsServers.rawValue)
-        XCTAssertEqual(value, "dns_servers")
+    func testNIKey8_keys(){
+        //0
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.name.rawValue), "name")
+        //1
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.localizedName.rawValue), "localized_name")
+        //2
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.mask.rawValue), "mask")
+        //3
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.destination.rawValue), "destination")
+        //4
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.address.rawValue), "address")
+        //5
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.macAddress.rawValue), "mac_address")
+        //6
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.gateway.rawValue), "gateway")
+        //7
+        XCTAssertEqual(APSys.getNIKey(APSysNIKey.dnsServers.rawValue), "dns_servers")
     }
     
     static var allTests = [
@@ -161,5 +134,7 @@ final class APObjCKitTests: XCTestCase {
         ("testIPv4AddressValidateMask", testIPv4AddressValidateMask),
         ("testIPv4AddressValidateWrongString", testIPv4AddressValidateWrongString),
         ("testIPv4AddressValidateZero", testIPv4AddressValidateZero),
+        ("testNIKey8_keys", testNIKey8_keys),
+        //
     ]
 }
