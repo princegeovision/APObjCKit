@@ -7,6 +7,10 @@ This package, provide Objective-C part of share code in Apple Platform helper ut
 - iOS = v12
 - macOS = v10.15
 
+### Notes
+
+- "PreRequirement.h" not use in iOS.
+
 ### History
 
 - 0.6.0 : provide API for Network Interface key.
