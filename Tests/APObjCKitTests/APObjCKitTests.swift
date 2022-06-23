@@ -10,57 +10,80 @@ final class APObjCKitTests: XCTestCase {
         // match version
         XCTAssertEqual(APObjCKit.version(), "0.4.0")
     }
+    func prepareInputDate()->NSDate {
+        let timeStamp = 1513330403393 //2017-12-15 09:33:23 +0000 UTC, Local +8
+        let unixTimeStamp: Double = Double(timeStamp) / 1000.0
+        let exactDate = NSDate.init(timeIntervalSince1970: unixTimeStamp)
+        return exactDate
+    }
     func testOSVersion(){
         
         var osmv : Int = 0
         let gotV = APSys.getOSMVersion(&osmv)
         XCTAssertEqual(gotV, true)
-        if #available(macOS 12.0, * ) {
-            XCTAssertEqual(osmv, 21)    //macOS Monterey
-        } else if #available(macOS 11.0, * ) {
-            XCTAssertEqual(osmv, 20)    //macOS Big Sur
-        } else if #available(macOS 10.15, * ) {
-            XCTAssertEqual(osmv, 19)    //macOS Catalina
-        } else {
-            XCTAssertEqual(osmv, 0)    //Unknown
-        }
-        
+//        if #available(macOS 12.0, * ) {
+//
+//        } else {
+//            XCTAssertEqual(osmv, 0)    //Unknown
+//        }
+        //XCTAssertEqual(osmv, 21)    //macOS Monterey
+        //XCTAssertEqual(osmv, 20)    //macOS Big Sur
+        XCTAssertEqual(osmv, 19)    //macOS Catalina
     }
     
     func testGetNumberWithDateYear(){
-        let timeStamp = 1513330403393 //2017-12-15 09:33:23 +0000 UTC, Local +8
-        let unixTimeStamp: Double = Double(timeStamp) / 1000.0
-        let exactDate = NSDate.init(timeIntervalSince1970: unixTimeStamp)
+        let exactDate = prepareInputDate()
         let inputType = APSysDateType.year
         let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
         XCTAssertEqual(num, 2017)
     }
     
     func testGetNumberWithDateMonth(){
-        let timeStamp = 1513330403393
-        let unixTimeStamp: Double = Double(timeStamp) / 1000.0
-        let exactDate = NSDate.init(timeIntervalSince1970: unixTimeStamp)
+        let exactDate = prepareInputDate()
         let inputType = APSysDateType.month
         let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
         XCTAssertEqual(num, 12)
     }
     func testGetNumberWithDateDay(){
-        let timeStamp = 1513330403393
-        let unixTimeStamp: Double = Double(timeStamp) / 1000.0
-        let exactDate = NSDate.init(timeIntervalSince1970: unixTimeStamp)
+        let exactDate = prepareInputDate()
         let inputType = APSysDateType.day
         let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
         XCTAssertEqual(num, 15)
     }
     func testGetNumberWithDateHour(){
-        let timeStamp = 1513330403393
-        let unixTimeStamp: Double = Double(timeStamp) / 1000.0
-        let exactDate = NSDate.init(timeIntervalSince1970: unixTimeStamp)
+        let exactDate = prepareInputDate()
         let inputType = APSysDateType.hours
         let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
         XCTAssertEqual(num, 17)
     }
-
+    func testGetNumberWithDateMinutes(){
+        let exactDate = prepareInputDate()
+        let inputType = APSysDateType.minutes
+        let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
+        XCTAssertEqual(num, 33)
+    }
+    
+    func testGetNumberWithDateSeconds(){
+        let exactDate = prepareInputDate()
+        let inputType = APSysDateType.seconds
+        let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
+        XCTAssertEqual(num, 23)
+    }
+    
+    func testGetNumberWithDateMilliseconds(){
+        let exactDate = prepareInputDate()
+        let inputType = APSysDateType.milliseconds
+        let num = APSys.getNumberWith(exactDate as Date, type: inputType.rawValue, useUtc: false)
+        XCTAssertEqual(num, 393)
+    }
+    
+    func testGetStringWithDate(){
+        let exactDate = prepareInputDate()
+        let str = APSys.getStringWith(exactDate as Date, useUtc: false)
+        XCTAssertEqual(str, "2017-12-15 17-33-23.393 +0800")
+    }
+    //getStringWithDate
+    
     static var allTests = [
         ("testVersion", testVersion),
         ("testOSVersion", testOSVersion),
@@ -68,5 +91,8 @@ final class APObjCKitTests: XCTestCase {
         ("testGetNumberWithDateMonth", testGetNumberWithDateMonth),
         ("testGetNumberWithDateDay", testGetNumberWithDateDay),
         ("testGetNumberWithDateHour", testGetNumberWithDateHour),
+        ("testGetNumberWithDateMinutes", testGetNumberWithDateMinutes),
+        ("testGetNumberWithDateSeconds", testGetNumberWithDateSeconds),
+        ("testGetNumberWithDateMilliseconds", testGetNumberWithDateMilliseconds),
     ]
 }
