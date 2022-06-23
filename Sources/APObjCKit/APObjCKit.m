@@ -39,8 +39,7 @@
 
 + (NSDictionary*) get1stNIInfo
 {
-    
-    return nil;
+    return [APSysUtility get1stInterfaceInfo];
 }
 
 + (BOOL) isIPv4AddressValidation:(NSString*)ipAddr

@@ -163,10 +163,10 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
         }
         
         
-        NSString* tempMac = (NSString*)mac;
+        NSString* tempMac = (__bridge NSString*)mac;
         if (NSOrderedSame == [macAddress compare:tempMac])
         {
-            localizedName = [[[NSString alloc] initWithString:(NSString*)name] autorelease];
+            localizedName = [[NSString alloc] initWithString:(__bridge NSString*)name];
             break;
         }
     }
@@ -224,7 +224,7 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
             continue;
         }
         
-        if (NSOrderedSame != [macAddress compare:(NSString *)mac])
+        if (NSOrderedSame != [macAddress compare:(__bridge NSString *)mac])
         {
             continue;
         }
@@ -253,7 +253,7 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
             
             CFStringRef type = SCNetworkProtocolGetProtocolType(protocol);
             
-            if (NSOrderedSame != [(NSString*)type compare:@"DNS"])
+            if (NSOrderedSame != [(__bridge NSString*)type compare:@"DNS"])
             {
                 continue;
             }
@@ -273,7 +273,7 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
         
         if (dns)
         {
-            dnsServers = [[[NSArray alloc] initWithArray:(NSArray *)dns] autorelease];
+            dnsServers = [[NSArray alloc] initWithArray:(__bridge NSArray *)dns];
             CFRelease(protocols);
             
             //NSLog(@"dns = %@", [(NSArray*)dnsServers description]);
@@ -521,7 +521,7 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
         return nil;
     }
 }
-
+#if TARGET_OS_IPHONE
 //Internal Use Only
 + (NSString*) getDNS
 {
@@ -539,6 +539,10 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
     }
     return resultString;
 }
+#else
+
+#endif
+
 //PUBLIC API
 + (NSString*) getIpV4
 {

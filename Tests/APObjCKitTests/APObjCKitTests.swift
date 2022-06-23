@@ -119,6 +119,15 @@ final class APObjCKitTests: XCTestCase {
         //7
         XCTAssertEqual(APSys.getNIKey(APSysNIKey.dnsServers.rawValue), "dns_servers")
     }
+    func testSystemNetworkInterfaceInfo(){
+        
+        let dic = APSys.get1stNIInfo();
+        
+        XCTAssertNotNil(dic, "Network Interface not nil")
+        
+        //XCTAssertEqual(bValidate, true)
+    }
+    
     
     static var allTests = [
         ("testVersion", testVersion),
