@@ -8,7 +8,7 @@ final class APObjCKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         // match version
-        XCTAssertEqual(APObjCKit.version(), "0.5.0")
+        XCTAssertEqual(APObjCKit.version(), "0.6.0")
     }
     func prepareInputDate()->NSDate {
         let timeStamp = 1513330403393 //2017-12-15 09:33:23 +0000 UTC, Local +8
@@ -97,12 +97,55 @@ final class APObjCKitTests: XCTestCase {
         XCTAssertEqual(bValidate, false)
     }
     func testIPv4AddressValidateZero(){
-        //Wrong String
+        
         let bValidate = APSys.isIPv4AddressValidation("0.0.0.0");
         XCTAssertEqual(bValidate, true)
     }
-    //isIPv4AddressValidation
-
+    func testNIKey1_name(){
+        
+        let name = APSys.getNIKey(APSysNIKey.name.rawValue)
+        XCTAssertEqual(name, "name")
+    }
+    func testNIKey2_localized_name(){
+        
+        let value = APSys.getNIKey(APSysNIKey.localizedName.rawValue)
+        XCTAssertEqual(value, "localized_name")
+    }
+    func testNIKey3_mask(){
+        
+        let value = APSys.getNIKey(APSysNIKey.mask.rawValue)
+        XCTAssertEqual(value, "mask")
+    }
+    
+    func testNIKey4_destination(){
+        
+        let value = APSys.getNIKey(APSysNIKey.destination.rawValue)
+        XCTAssertEqual(value, "destination")
+    }
+    
+    func testNIKey5_address(){
+        
+        let value = APSys.getNIKey(APSysNIKey.address.rawValue)
+        XCTAssertEqual(value, "address")
+    }
+    
+    func testNIKey6_mac_address(){
+        
+        let value = APSys.getNIKey(APSysNIKey.macAddress.rawValue)
+        XCTAssertEqual(value, "mac_address")
+    }
+    
+    func testNIKey7_gateway(){
+        
+        let value = APSys.getNIKey(APSysNIKey.gateway.rawValue)
+        XCTAssertEqual(value, "gateway")
+    }
+    //
+    func testNIKey8_dns_servers(){
+        
+        let value = APSys.getNIKey(APSysNIKey.dnsServers.rawValue)
+        XCTAssertEqual(value, "dns_servers")
+    }
     
     static var allTests = [
         ("testVersion", testVersion),

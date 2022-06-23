@@ -18,6 +18,15 @@
 #include <errno.h>
 #include <sys/sysctl.h>
 
+/// Pre-define key for Network Interface
+NSString* const kNetworkInterfaceKeyName          = @"name";
+NSString* const kNetworkInterfaceKeyLocalizedName = @"localized_name";
+NSString* const kNetworkInterfaceKeyMask          = @"mask";
+NSString* const kNetworkInterfaceKeyDestination   = @"destination";
+NSString* const kNetworkInterfaceKeyAddress       = @"address";
+NSString* const kNetworkInterfaceKeyMacAddress    = @"mac_address";
+NSString* const kNetworkInterfaceKeyGateway       = @"gateway";
+NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
 
 @implementation APSysUtility
 

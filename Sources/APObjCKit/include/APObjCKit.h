@@ -29,10 +29,22 @@ typedef NS_ENUM(NSInteger, APSysDateType) {
     APSysDateTypeMilliseconds = 7
 };
 
+typedef NS_ENUM(NSInteger, APSysNIKey) {
+    APSysNIKeyName = 0,
+    APSysNIKeyLocalizedName = 1,
+    APSysNIKeyMask = 2,
+    APSysNIKeyDestination = 3,
+    APSysNIKeyAddress = 4,
+    APSysNIKeyMacAddress = 5,
+    APSysNIKeyGateway = 6,
+    APSysNIKeyDnsServers = 7,
+};
+
 @interface APSys : NSObject
 {
     
 }
++ (NSString*) getNIKey:(NSInteger)key;
 
 + (BOOL) isIPv4AddressValidation:(NSString*)ipAddr;
 

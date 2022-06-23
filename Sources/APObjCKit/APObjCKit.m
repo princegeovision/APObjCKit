@@ -14,13 +14,28 @@
 + (NSString *) version
 {
     
-    return @"0.5.0";
+    return @"0.6.0";
 }
 
 
 @end
 
 @implementation APSys
+
++ (NSString*) getNIKey:(NSInteger)key
+{
+    NSArray *arr = @[
+        @"name",
+        @"localized_name",
+        @"mask",
+        @"destination",
+        @"address",
+        @"mac_address",
+        @"gateway",
+        @"dns_servers",
+        ];
+        return (NSString *)[arr objectAtIndex:key];
+}
 
 + (BOOL) isIPv4AddressValidation:(NSString*)ipAddr
 {

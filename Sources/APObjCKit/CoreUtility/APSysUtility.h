@@ -20,11 +20,21 @@ typedef NS_ENUM(NSInteger, APSysUtilityDateType) {
     APSysUtilityDateTypeMilliseconds = 7
 };
 
+extern NSString* const kNetworkInterfaceKeyName;
+extern NSString* const kNetworkInterfaceKeyLocalizedName;
+extern NSString* const kNetworkInterfaceKeyMask;
+extern NSString* const kNetworkInterfaceKeyDestination;
+extern NSString* const kNetworkInterfaceKeyAddress;
+extern NSString* const kNetworkInterfaceKeyMacAddress;
+extern NSString* const kNetworkInterfaceKeyGateway;
+extern NSString* const kNetworkInterfaceKeyDnsServers;
+
 NS_SWIFT_NAME(AP.SysUtility)
 @interface APSysUtility : NSObject
 {
     
 }
+
 //API04
 + (BOOL) isLANIPv4AddrValidate:(NSString*)ipAddress;
 //API03
