@@ -27,6 +27,11 @@
     return [APSysUtility getNumberWithDate:date type:sdType useUtc:useUtc];
 }
 
++ (NSString*) getStringWithDate:(NSDate*)date useUtc:(BOOL)useUtc
+{
+    return [APSysUtility getStringWithDate:date useUtc:useUtc format:@"yyyy-MM-dd HH-mm-ss.SSS Z"];;
+}
+
 + (BOOL) getOSMVersion:(NSInteger*)major
 {
     return [APSysUtility getOSMajorVersion:major];
