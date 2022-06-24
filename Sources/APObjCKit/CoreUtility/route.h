@@ -67,13 +67,27 @@
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-
+//v1
 //#include <net/route.h>
+//#if TARGET_IPHONE_SIMULATOR
+//#include "route.h"
+//#else
+//#include "route.h"
+//#include <net/route.h>
+//#endif
+//v2
+//#if TARGET_IPHONE_SIMULATOR
+//#include <net/route.h>
+//#else
+//#include "route.h"
+//#endif
+//v3
 #if TARGET_IPHONE_SIMULATOR
-#include "route.h"
+    #include <net/route.h>
+    #define TypeEN    "en1"
 #else
-#include "route.h"
-#include <net/route.h>
+    #include "route.h"
+    #define TypeEN    "en0"
 #endif
 
 #include <sys/socket.h>
@@ -110,19 +124,19 @@ struct route;
 #if TARGET_IPHONE_SIMULATOR
 
 #else
-//struct rt_metrics {
-//    u_int32_t    rmx_locks;    /* Kernel must leave these values alone */
-//    u_int32_t    rmx_mtu;    /* MTU for this path */
-//    u_int32_t    rmx_hopcount;    /* max hops expected */
-//    int32_t        rmx_expire;    /* lifetime for route, e.g. redirect */
-//    u_int32_t    rmx_recvpipe;    /* inbound delay-bandwidth product */
-//    u_int32_t    rmx_sendpipe;    /* outbound delay-bandwidth product */
-//    u_int32_t    rmx_ssthresh;    /* outbound gateway buffer limit */
-//    u_int32_t    rmx_rtt;    /* estimated round trip time */
-//    u_int32_t    rmx_rttvar;    /* estimated rtt variance */
-//    u_int32_t    rmx_pksent;    /* packets sent using this route */
-//    u_int32_t    rmx_filler[4];    /* will be used for T/TCP later */
-//};
+struct rt_metrics {
+    u_int32_t    rmx_locks;    /* Kernel must leave these values alone */
+    u_int32_t    rmx_mtu;    /* MTU for this path */
+    u_int32_t    rmx_hopcount;    /* max hops expected */
+    int32_t        rmx_expire;    /* lifetime for route, e.g. redirect */
+    u_int32_t    rmx_recvpipe;    /* inbound delay-bandwidth product */
+    u_int32_t    rmx_sendpipe;    /* outbound delay-bandwidth product */
+    u_int32_t    rmx_ssthresh;    /* outbound gateway buffer limit */
+    u_int32_t    rmx_rtt;    /* estimated round trip time */
+    u_int32_t    rmx_rttvar;    /* estimated rtt variance */
+    u_int32_t    rmx_pksent;    /* packets sent using this route */
+    u_int32_t    rmx_filler[4];    /* will be used for T/TCP later */
+};
 
 #endif
 
@@ -187,20 +201,20 @@ struct route;
 #if TARGET_IPHONE_SIMULATOR
 
 #else
-//struct rt_msghdr {
-//    u_short    rtm_msglen;        /* to skip over non-understood messages */
-//    u_char    rtm_version;        /* future binary compatibility */
-//    u_char    rtm_type;        /* message type */
-//    u_short    rtm_index;        /* index for associated ifp */
-//    int    rtm_flags;        /* flags, incl. kern & message, e.g. DONE */
-//    int    rtm_addrs;        /* bitmask identifying sockaddrs in msg */
-//    pid_t    rtm_pid;        /* identify sender */
-//    int    rtm_seq;        /* for sender to identify action */
-//    int    rtm_errno;        /* why failed */
-//    int    rtm_use;        /* from rtentry */
-//    u_int32_t rtm_inits;        /* which metrics we are initializing */
-//    struct rt_metrics rtm_rmx;    /* metrics themselves */
-//};
+struct rt_msghdr {
+    u_short    rtm_msglen;        /* to skip over non-understood messages */
+    u_char    rtm_version;        /* future binary compatibility */
+    u_char    rtm_type;        /* message type */
+    u_short    rtm_index;        /* index for associated ifp */
+    int    rtm_flags;        /* flags, incl. kern & message, e.g. DONE */
+    int    rtm_addrs;        /* bitmask identifying sockaddrs in msg */
+    pid_t    rtm_pid;        /* identify sender */
+    int    rtm_seq;        /* for sender to identify action */
+    int    rtm_errno;        /* why failed */
+    int    rtm_use;        /* from rtentry */
+    u_int32_t rtm_inits;        /* which metrics we are initializing */
+    struct rt_metrics rtm_rmx;    /* metrics themselves */
+};
 #endif
 
 //include_tmp
