@@ -121,11 +121,16 @@ final class APObjCKitTests: XCTestCase {
     }
     func testSystemNetworkInterfaceInfo(){
         
-        let dic = APSys.get1stNIInfo();
-        
+        let dic = APSys.get1stNIInfo() as NSDictionary;
+        //step1 : get Network Interface Info , NSDictionary
         XCTAssertNotNil(dic, "Network Interface not nil")
-        
-        //XCTAssertEqual(bValidate, true)
+        //step2 : confirm content of dictionary
+        let name = dic[APSys.getNIKey(APSysNIKey.name.rawValue)] as! String
+        XCTAssertEqual(name, "en1")
+        let mask = dic[APSys.getNIKey(APSysNIKey.mask.rawValue)] as! String
+        XCTAssertEqual(mask, "255.255.248.0")
+        let address = dic[APSys.getNIKey(APSysNIKey.address.rawValue)] as! String
+        XCTAssertEqual(address, "192.168.0.252")//IpAddress
     }
     
     
