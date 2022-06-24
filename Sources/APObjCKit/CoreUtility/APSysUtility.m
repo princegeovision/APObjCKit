@@ -289,8 +289,45 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
     return dnsServers;
 #endif
 }
+//INTERNAL
 
-+ (NSArray*) getAllNetworkInterface
++ (NSArray*) getAllNetworkInterface_ios
+{
+    struct ifaddrs* interfaces = NULL;
+    // retrieve the current interfaces - returns 0 on success
+    NSMutableArray* results = [[NSMutableArray alloc] init];
+    NSInteger success = getifaddrs(&interfaces);
+    if (0 == success)
+    {
+        // Loop through linked list of interfaces
+        struct ifaddrs* temp_addr = interfaces;
+        while (temp_addr != NULL)
+        {
+            if (temp_addr->ifa_addr->sa_family == AF_INET && !(temp_addr->ifa_flags & IFF_LOOPBACK)) // internetwork only
+            {
+                NSString* name = [NSString stringWithUTF8String:temp_addr->ifa_name];
+                NSString* address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                NSString* maskAddress = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_netmask)->sin_addr)];
+                NSString* dstAddress = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_dstaddr)->sin_addr)];
+                
+                NSDictionary* info = \
+                    [NSDictionary dictionaryWithObjectsAndKeys:name, @"name", \
+                                                            address, @"address", \
+                                                            maskAddress, @"mask", \
+                                                            dstAddress, @"destination", \
+                                                            nil];
+                
+                [results addObject:info];
+                //NSLog(@"interface info: %@", [info description]);
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    return results;
+}
++ (NSArray*) getAllNetworkInterface_macOS
 {
     struct ifaddrs* interfaces = NULL;
     // retrieve the current interfaces - returns 0 on success
@@ -315,9 +352,7 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
             NSString* maskAddress = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_netmask)->sin_addr)];
             NSString* dstAddress = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_dstaddr)->sin_addr)];
             NSString* macAddress = [APSysUtility findMacAddressByNameWithIfAddrs:interfaces name:name];
-#if TARGET_OS_IPHONE
-            NSArray*  dnsServers = nil;
-#else
+
             NSArray*  dnsServers = [APSysUtility findDnsByMacAddress:macAddress];
             if (!dnsServers && gateway)
             {
@@ -335,7 +370,6 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
                                                         nil];
             NSLog(@"(macOS)interface info: %@", [info description]);
             [results addObject:info];
-#endif
         }
         else
         {
@@ -597,11 +631,43 @@ NSString* const kNetworkInterfaceKeyDnsServers    = @"dns_servers";
     return RouterString;
 }
 
-
+//PUBLIC API
++ (NSDictionary*) getInterfaceInfoByMacAddress:(NSString*)macAddress
+{
+    NSArray* interfaces = nil;
+#if __has_include(<UIKit/UIView.h>) || !TARGET_OS_IPHONE
+    interfaces = [APSysUtility getAllNetworkInterface_ios];
+#else
+    interfaces = [APSysUtility getAllNetworkInterface_macOS];
+#endif
+    
+    if (!interfaces || 0 == [interfaces count])
+    {
+        return nil;
+    }
+    
+    
+    for (NSDictionary* interface in interfaces)
+    {
+        NSString* mac = [interface objectForKey:kNetworkInterfaceKeyMacAddress];
+        if (mac && NSOrderedSame == [macAddress compare:mac])
+        {
+            return [[NSDictionary alloc] initWithDictionary:interface];
+        }
+    }
+    
+    return nil;
+}
 //PUBLIC API
 + (NSDictionary*) get1stInterfaceInfo
 {
-    NSArray* interfaces = [APSysUtility getAllNetworkInterface];
+    NSArray* interfaces = nil;
+#if __has_include(<UIKit/UIView.h>) || !TARGET_OS_IPHONE
+    interfaces = [APSysUtility getAllNetworkInterface_ios];
+#else
+    interfaces = [APSysUtility getAllNetworkInterface_macOS];
+#endif
+    
     if (!interfaces || 0 == [interfaces count])
     {
         return nil;
