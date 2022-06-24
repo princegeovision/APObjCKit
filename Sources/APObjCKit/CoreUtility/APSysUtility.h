@@ -36,10 +36,16 @@ NS_SWIFT_NAME(AP.SysUtility)
 {
     
 }
-//API07
+//API08
 + (NSString*) getIpV4;
+//API07
+#if __has_include(<UIKit/UIView.h>) || !TARGET_OS_IPHONE
++ (NSArray*) getAllNetworkInterface_ios;
+#else
++ (NSArray*) getAllNetworkInterface_macOS;
+#endif
 //API06
-+ (NSArray*) getAllNetworkInterface;
++ (NSDictionary*) getInterfaceInfoByMacAddress:(NSString*)macAddress;
 //API05
 + (NSDictionary*) get1stInterfaceInfo;
 //API04
