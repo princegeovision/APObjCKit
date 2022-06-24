@@ -12,6 +12,12 @@ This package, provide Objective-C part of share code in Apple Platform helper ut
 - "PreRequirement.h" not use in iOS
 - "libresolv.tbd", "libresolv.9.tbd" need this. [REF](https://developer.apple.com/forums/thread/654882)
 
+#### currently test on iOS-simulator ok. But fail on macOS for 2 reason
+
+- 01 = struct rt_metrics
+- 02 = Missing '#include <net/route.h>'; definition of 'rt_metrics' must be imported from module 'Darwin.net.route' before it is required
+- This function compiler can define not see in macOS.
+
 ### History
 
 - 0.7.0 : provide API for Network Interface Info. (both macOS , and iOS)
